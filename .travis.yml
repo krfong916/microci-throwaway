@@ -17,8 +17,7 @@ jobs:
       # Authenticate to Docker Hub
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
       # Build and push image
-      - docker-compose build
-      - docker ps -all
+      - docker-compose build   
       - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest
       - docker push "$DOCKER_USERNAME"/microci-throwaway_server
       - docker images
