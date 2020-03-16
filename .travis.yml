@@ -19,8 +19,8 @@ jobs:
       # Build and push image
       - docker-compose build
       - docker ps -all
-      - docker tag ci-cd-dupe_server "$DOCKER_USERNAME"/ci-cd-dupe_server:latest
-      - docker push "$DOCKER_USERNAME"/ci-cd-dupe_server
+      - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest
+      - docker push "$DOCKER_USERNAME"/microci-throwaway_server
       - docker images
   - stage: Deploy(Staging)
     name: Deploy To Staging
@@ -29,10 +29,10 @@ jobs:
       script:
         # Authenticate to Docker Hub and pull the latest image
         - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        - docker pull "$DOCKER_USERNAME"/ci-cd-dupe_server:latest
+        - docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest
         # Deploy image to Heroku
         - heroku container:login
-        - docker tag ci-cd-dupe_server registry.heroku.com/microci-test/web
+        - docker tag microci-throwaway_server registry.heroku.com/microci-test/web
         - docker push registry.heroku.com/microci-test/web
         - heroku container:push web
         - heroku container:release web
