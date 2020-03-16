@@ -22,8 +22,10 @@ jobs:
       - docker images
   - stage: Deploy(Staging)
     name: Deploy To Staging
-    script: 
-      - echo "here in deploy staging"
-      - bash deploy.sh
+    deploy:
+      provider: script
+      script:
+        - bash deploy.sh
       on:
         tags: true
+      
