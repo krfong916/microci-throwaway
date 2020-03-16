@@ -12,7 +12,6 @@ jobs:
   - stage: Build
     name: Build Container Image
     services: docker
-    provider: script
     script:
       # Authenticate to Docker Hub
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
@@ -23,8 +22,8 @@ jobs:
       - docker images
   - stage: Deploy(Staging)
     name: Deploy To Staging
-    deploy:
-      provider: script
-      script: bash deploy.sh
+    script: 
+      - echo "here in deploy staging"
+      - bash deploy.sh
       on:
         tags: true
