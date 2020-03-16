@@ -3,7 +3,7 @@ echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdi
 echo "pulling from docker hub"
 docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest
 # Deploy image to Heroku
-heroku container:login
+docker login --username="$DOCKER_USERNAME" --password="$HEROKU_AUTH_TOKEN" registry.heroku.com
 docker tag microci-throwaway_server registry.heroku.com/microci-test/web
 docker push registry.heroku.com/microci-test/web
 echo "test container release"
