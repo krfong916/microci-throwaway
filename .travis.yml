@@ -1,18 +1,26 @@
 os: linux
 language: node_js
 node_js:
-  - node
+- node
 cache: npm
-
 jobs:
   include:
-    - stage: Test
-      install: npm install
-      name: 'Unit Test'
-      script: npm test
-    - stage: Build
-      name: 'Build Container Image'
-      services: docker
-      before_script:
-        - docker-compose build
-        - docker ps
+  - stage: Test
+    install: npm install
+    name: Unit Test
+    script: npm test
+  - stage: Build
+    name: Build Container Image
+    services: docker
+    before_script:
+    - docker-compose build
+    - docker ps -all
+  - stage: Staging-Deploy
+    name: Deploy To Staging    
+    deploy:
+      provider: heroku
+      api_key:
+        secure: "$HEROKU_API_KEY"
+      app: "$HEROKU_APP"
+      on:
+        repo: "$GITHUB_REPO"
