@@ -1,13 +1,18 @@
 os: linux
+language: node_js
+node_js:
+  - node
+cache: npm
 
 jobs:
   include:
+    - stage: Test
+      install: npm install
+      name: 'Unit Test'
+      script: npm test
     - stage: Build
       name: 'Build Container Image'
       services: docker
-      env:
-        - DOCKER_COMPOSE_VERSION=3.7
-      before_install:
+      before_script:
         - docker-compose build
         - docker ps
-    
