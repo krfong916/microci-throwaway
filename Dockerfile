@@ -9,7 +9,7 @@ WORKDIR /app
 # Copy package.json of this directory into the container
 COPY package.json /app
 
-RUN yarn install
+RUN npm install
 
 # Copy all files from this directory into the container
 COPY . /app
@@ -22,4 +22,4 @@ ARG PORT=3001
 ENV PORT=${PORT}
 ENV NODE_ENVIRONMENT="{NODE_ENVIRONMENT}"
 
-CMD ["yarn", "run", "dev"]
+CMD ["npm", "run", "dev"]
