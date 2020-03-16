@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENVIRONMENT=dev nodemon --exec babel-node ./index.js",
-    "production": " NODE_ENVIRONMENT=production nodemon --exec babel-node ./index.js",
+    "start": " NODE_ENVIRONMENT=production nodemon --exec babel-node ./index.js",
     "test": "NODE_ENVIRONMENT=test jest --config ./tests/config/jest.config.js"
   },
   "author": "Kyle Fong <krfong@ucsc.edu>",

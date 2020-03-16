@@ -22,4 +22,4 @@ ARG PORT=3001
 ENV PORT=${PORT}
 ENV NODE_ENVIRONMENT="{NODE_ENVIRONMENT}"
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
