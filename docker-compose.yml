@@ -1,0 +1,16 @@
+# production compose file
+version: "3.7"
+
+services:
+  server:
+    build:
+      context: "."
+      args:
+        - NODE_ENVIRONMENT=dev
+    command: yarn run dev
+    env_file:
+      - ".env"
+    ports:
+      - "3001:3001"
+    volumes:
+      - ".:/app"

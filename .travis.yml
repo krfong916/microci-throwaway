@@ -1,0 +1,13 @@
+os: linux
+
+language: node_js
+
+node_js:
+  - node
+
+before_script:
+  - npm install
+
+cache: npm
+
+script: npm test
