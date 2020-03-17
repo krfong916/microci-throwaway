@@ -8,4 +8,6 @@ before_install:
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
 
 script:
+  - docker tag microci-throwaway_server registry.heroku.com/$HEROKU_APP/web;
+  - docker push registry.heroku.com/$HEROKU_APP/web;
   - heroku container:release web --app $HEROKU_APP;
