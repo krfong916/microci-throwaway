@@ -12,14 +12,12 @@ script:
 
 deploy:
   - provider: script
-    before_script: 
-      docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest
     script:
+      docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest;
       docker images
-  - provider: script
-    before_script:
-      docker tag microci-throwaway_server registry.heroku.com/$HEROKU_APP/web
+  - provider: script    
     script:
+      docker tag microci-throwaway_server registry.heroku.com/$HEROKU_APP/web;
       heroku container:login;
       docker push registry.heroku.com/$HEROKU_APP/web;
       heroku container:release web --app $HEROKU_APP
