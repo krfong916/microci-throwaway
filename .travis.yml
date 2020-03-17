@@ -1,14 +1,14 @@
 os: linux
 language: node_js
 node_js:
-- node
+  - node
 
 before_install:
-- wget -qO- https://toolbelt.heroku.com/install.sh | sh
-- echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
 
 script:
-  docker-compose build;
+  - docker-compose build
 
 deploy:
   - provider: script
@@ -17,6 +17,8 @@ deploy:
     script:
       docker images
   - provider: script
+    before_script:
+      docker tag microci-throwaway_server registry.heroku.com/$HEROKU_APP/web
     script:
       heroku container:login;
       docker push registry.heroku.com/$HEROKU_APP/web;
