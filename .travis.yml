@@ -6,6 +6,7 @@ node_js:
 before_install:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
+  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
 script:
   - docker-compose build
@@ -14,6 +15,7 @@ deploy:
   - provider: script
     script:
       docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest;
+      docker push $DOCKER_USERNAME/microci-throwaway_server:latest
       docker images
   - provider: script    
     script:
