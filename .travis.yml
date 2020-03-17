@@ -5,23 +5,20 @@ node_js:
 cache: npm
 jobs:
   include:
-  # - stage: Test
-  #   install: npm install
-  #   name: Unit Test
-  #   script: npm test
   - stage: Build
     name: Build Container Image
     services: docker
     script:
-      # Authenticate to Docker Hub
-      - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-      # Build and push image
-      - docker-compose build   
-      - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest
-      - docker push "$DOCKER_USERNAME"/microci-throwaway_server
-      - docker images
+    - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+    - docker-compose build
+    - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest
+    - docker push "$DOCKER_USERNAME"/microci-throwaway_server
+    - docker images
   - stage: Deploy(Staging)
     name: Deploy To Staging
     deploy:
       provider: script
+      api_key:
+        secure: $HEROKU_API_KEY
       script: bash deploy.sh
+  
