@@ -13,4 +13,7 @@ before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
-  - heroku container:login
+  - echo "$HEROKU_USERNAME" echo "HEROKU_PASSWORD" | heroku container:login
+  - heroku container:release web
+
+
