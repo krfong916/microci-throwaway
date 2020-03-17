@@ -5,33 +5,33 @@ node_js:
 cache: npm
 jobs:
   include:
-  - stage: Test
-    install: npm install
-    name: Unit Test
-    script: npm test
+  # - stage: Test
+  #   install: npm install
+  #   name: Unit Test
+  #   script: npm test
   - stage: Build
     name: Build Container Image
     services: docker
-    before_script:
+    script:
       # Authenticate to Docker Hub
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-    script:
-      # Build image
-      - docker-compose build
+      # Build and push image
+      - docker-compose build   
       - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest
+      - docker push "$DOCKER_USERNAME"/microci-throwaway_server
+      - docker images
   - stage: Deploy(Staging)
     name: Deploy To Staging
     deploy:
       provider: script
-      before_script:
-        # Authenticate to heroku container registry
-        - echo "${HEROKU_AUTH_TOKEN}" | docker login --username="$DOCKER_USERNAME" --password-stdin registry.heroku.com
       script:
-        # Deploy image to Docker Hub
-        - docker images
-        - docker push "$DOCKER_USERNAME"/microci-throwaway_server
-        # Deploy image to Heroku Registry
-        - docker tag microci-throwaway_server registry.heroku.com/microci-test/web
-        - heroku container:release web --app $HEROKU_APP
-
-      
+        # Authenticate to Docker Hub and pull the latest image
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest
+        # Deploy image to Heroku
+        - echo "${HEROKU_AUTH_TOKEN}" | docker login --username="$DOCKER_USERNAME" --password-stdin registry.heroku.com
+        - docker tag "$DOCKER_USERNAME"/microci-throwaway_server registry.heroku.com/microci-test/web
+        - echo "test container release"
+        - heroku container:push web
+        - heroku container:release web
+        

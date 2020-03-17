@@ -3,7 +3,7 @@ import { getReportsController } from '../features/reports/useCases/getReports/in
 const reportsRouter = express.Router();
 
 reportsRouter.get('/', (req, res, next) => {
-  res.send('welcome to microci test!');
+  res.send('Hi and welcome to MicroCI!');
 });
 
 reportsRouter.get('/reports/:id', (req, res, next) => {
