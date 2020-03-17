@@ -18,9 +18,8 @@ deploy:
   provider: script
     script:
       - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest;
+      - docker tag microci-throwaway_server registry.heroku.com/$HEROKU_APP/web;
       - docker push "$DOCKER_USERNAME"/microci-throwaway_server;
-      - docker images;
-      - docker tag $DOCKER_USERNAME/microci-throwaway_server registry.heroku.com/$HEROKU_APP/web;
       - docker push registry.heroku.com/$HEROKU_APP/web;
       - heroku container:release web --app $HEROKU_APP;
       - docker images;
