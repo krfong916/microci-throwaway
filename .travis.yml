@@ -15,7 +15,7 @@ deploy:
   - provider: script
     script:
       docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest;
-      docker push $DOCKER_USERNAME/microci-throwaway_server:latest
+      docker push $DOCKER_USERNAME/microci-throwaway_server:latest;
       docker images
   - provider: script    
     script:
