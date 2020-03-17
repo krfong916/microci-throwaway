@@ -4,18 +4,20 @@ node_js:
 - node
 cache: npm
 
-jobs:
-  include:
-  - stage: Deploy(Staging)
-    name: Deploy To Staging
-    provider: script
-    script:
-      # Login to Docker Hub and pull image
-      - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-      - docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest
-      # Login to Heroku registry directly from Docker CLI and push the image
-      - echo "${HEROKU_API_KEY}" | docker login --username=_ --password-stdin registry.heroku.com
-      - docker tag "$DOCKER_USERNAME"/microci-throwaway_server registry.heroku.com/microci-test/web
-      - docker images
-      - docker push registry.heroku.com/microci-test/web        
-      - heroku container:release web
+provider: script
+before_script: 
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  # Login to docker registries (Docker Hub + heroku)
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$HEROKU_TOKEN" docker login --username=_ --password-stdin registry.heroku.com
+
+script:
+  # Pull image from Docker Hub
+  - docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest
+  - docker tag "$DOCKER_USERNAME"/microci-throwaway_server registry.heroku.com/microci-test/web
+  - docker images
+deploy:
+  provider: script
+  script:
+    - docker push registry.heroku.com/microci-test/web        
+    - heroku container:release web
