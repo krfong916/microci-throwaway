@@ -4,18 +4,25 @@ node_js:
 - node
 cache: npm
 services: docker
+
 before_install:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
-script:
-  - docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest;
-  - docker tag $DOCKER_USERNAME/microci-throwaway_server registry.heroku.com/microci-test/web;
-deploy:
-  provider: script
-  script:
-    - docker push registry.heroku.com/$HEROKU_APP/web;
 
-after_deploy:
-  script:
-    - heroku container:release web --app $HEROKU_APP;
+script:
+  - docker-compose build
+  - docker images
+
+deploy:
+  - provider: script
+    script:
+      - docker tag microci-throwaway_server "$DOCKER_USERNAME"/microci-throwaway_server:latest
+      - docker push "$DOCKER_USERNAME"/microci-throwaway_server
+      - docker images  
+  - provider: script
+    script:
+      - docker tag $DOCKER_USERNAME/microci-throwaway_server registry.heroku.com/$HEROKU_APP/web;
+      - docker push registry.heroku.com/$HEROKU_APP/web
+      - heroku container:release web --app $HEROKU_APP
+      - docker images
