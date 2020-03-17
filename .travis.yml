@@ -10,12 +10,16 @@ before_install:
 
 jobs:
   include:
-    - stage: Build
-      name: 'Build Image'
+    
+    - stage: Test
+      name: 'Unit Test'
+      install: npm install
+      script: npm test
+
+    - stage: Deploy
+      name: 'Deploy to Staging'
       script:
         - docker-compose build
-    - stage: Deploy
-      name: Deploy-Staging
       deploy:
       - provider: script
         script:
