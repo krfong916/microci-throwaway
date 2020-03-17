@@ -22,12 +22,4 @@ jobs:
     services: docker
     deploy:
       provider: script
-      before_script: 
-        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-      script:
-        - docker pull "$DOCKER_USERNAME"/microci-throwaway_server:latest
-        # Deploy image to Heroku
-        - echo "${HEROKU_API_KEY}" | docker login --username=krfong@ucsc.edu --password-stdin registry.heroku.com
-        - docker tag "$DOCKER_USERNAME"/microci-throwaway_server registry.heroku.com/microci-test/web
-        - docker push registry.heroku.com/microci-test/web        
-        - heroku container:release web
+      script: bash deploy.sh
