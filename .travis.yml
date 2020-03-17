@@ -18,7 +18,5 @@ jobs:
     name: Deploy To Staging
     deploy:
       provider: script
-      api_key:
-        secure: $HEROKU_API_KEY
       script: bash deploy.sh
   
