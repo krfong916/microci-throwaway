@@ -11,12 +11,12 @@ install:
 before_script:
   # Login to Docker Hub and pull image
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - echo "$HEROKU_TOKEN" docker login --username=_ --password-stdin registry.heroku.com
 
 script:
   - docker pull $DOCKER_USERNAME/microci-throwaway_server:latest
   - docker tag $DOCKER_USERNAME/microci-throwaway_server registry.heroku.com/$HEROKU_APP/web
   - docker images
+  - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
   - docker push registry.heroku.com/$HEROKU_APP/web
   - heroku container:release web --app $HEROKU_APP
   - docker logout
