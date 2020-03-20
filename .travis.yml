@@ -34,4 +34,4 @@ jobs:
           heroku container:release web --app $HEROKU_APP
       - provider: script
         script:
-          sh ./data/staging/deploy-staging.sh
+          bash ./data/staging/deploy-staging.sh
