@@ -14,7 +14,7 @@ jobs:
     - stage: Test
       name: 'Unit Test'
       install: npm install
-      script: npm test
+      script: docker-compose run server npm run test
 
     - stage: Deploy
       name: 'Deploy to Staging'

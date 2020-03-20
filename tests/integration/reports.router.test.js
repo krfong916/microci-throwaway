@@ -15,7 +15,7 @@ describe('reports router integration test', () => {
 
   test('get reports endpoint', async () => {
     const response = await request.get('/reports/1');
-    // expect(response.status).toEqual(200);
+    expect(response.status).toEqual(200);
     expect(response.body).toBeDefined();
   });
 });

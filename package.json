@@ -2,6 +2,7 @@
   "name": "microci",
   "description": "A workspace to test image creation and docker compose",
   "main": "index.js",
+  "config": "./config/env.js",
   "scripts": {
     "dev": "NODE_ENVIRONMENT=dev nodemon --exec babel-node ./index.js",
     "start": " NODE_ENVIRONMENT=production nodemon --exec babel-node ./index.js",
@@ -23,8 +24,10 @@
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.2",
+    "pg": "^7.18.2",
     "volleyball": "^1.5.1"
   },
   "devDependencies": {

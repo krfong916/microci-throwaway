@@ -3,12 +3,26 @@ version: "3.7"
 
 services:
   server:
+    container_name: micro_server
     build:
       context: "."
       args:
         - NODE_ENVIRONMENT=dev
-    command: npm run dev
-    env_file:
-      - ".env"
     ports:
-      - "3001:3001"
+      - 3001:3001
+    command: npm run dev
+    volumes:
+      - .:/app
+    depends_on:
+      - microci-db
+  microci-db:
+    image: postgis/postgis:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=micro
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports: 
+      - "5432:5432"
+    restart: unless-stopped
