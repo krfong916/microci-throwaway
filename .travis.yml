@@ -33,4 +33,7 @@ before_install:
 #           docker push registry.heroku.com/$HEROKU_APP/web;
 #           heroku container:release web --app $HEROKU_APP
 #       - provider: script
-script: bash ./data/staging/deploy-staging.sh
+script: 
+  - heroku auth:whoami
+  - heroku auth:login
+
