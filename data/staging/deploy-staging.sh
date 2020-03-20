@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 if [[ $(cat './init.staging.check.sql' | heroku pg:psql) ]]; then
 echo "schema and data exists, dropping relations..."
   [[ $(cat './init.staging.drop.sql' | heroku pg:psql) ]];
