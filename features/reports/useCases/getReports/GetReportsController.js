@@ -4,17 +4,14 @@ export default class GetReportsController {
     try {
       const { Client } = require('pg');
       const client = new Client({
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DB,
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT
+        connectionString: `${process.env.DATABASE_URL}`,
+        ssl: process.env.DB_SSL ? true : false
       });
 
       await client.connect();
       const result = await client.query('SELECT * FROM identities');
       client.end();
-      response.sendStatus(200).json({ result });
+      return response.json({ result });
     } catch (error) {
       return error;
     }

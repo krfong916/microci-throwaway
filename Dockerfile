@@ -15,11 +15,11 @@ RUN npm install
 COPY . /app
 
 # Set build-time variables
-ARG NODE_ENVIRONMENT=dev
+ARG NODE_ENV=staging
 ARG PORT=3001
 
 # Set default run-time variables, can be overridden when creating a new container
 ENV PORT=${PORT}
-ENV NODE_ENVIRONMENT="{NODE_ENVIRONMENT}"
+ENV NODE_ENV="{NODE_ENV}"
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "staging"]

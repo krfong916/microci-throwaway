@@ -4,9 +4,10 @@
   "main": "index.js",
   "config": "./config/env.js",
   "scripts": {
-    "dev": "NODE_ENVIRONMENT=dev nodemon --exec babel-node ./index.js",
-    "start": " NODE_ENVIRONMENT=production nodemon --exec babel-node ./index.js",
-    "test": "NODE_ENVIRONMENT=test jest --config ./tests/config/jest.config.js"
+    "dev": "NODE_ENV=dev nodemon --exec babel-node ./index.js",
+    "staging": "NODE_ENV=staging nodemon --exec babel-node ./index.js",
+    "prod": " NODE_ENV=production nodemon --exec babel-node ./index.js",
+    "test": "NODE_ENV=test jest --config ./tests/config/jest.config.js"
   },
   "author": "Kyle Fong <krfong@ucsc.edu>",
   "license": "MIT",
