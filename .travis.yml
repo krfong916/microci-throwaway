@@ -34,5 +34,6 @@ before_install:
 #           heroku container:release web --app $HEROKU_APP
 #       - provider: script
 script: 
-  - heroku login
+  - heroku login -u "${HEROKU_USERNAME}" -p "${HEROKU_PASSWORD}"
+  - heroku login -u krfong@ucsc.edu -p JOHNwall11
 
