@@ -11,16 +11,16 @@ before_install:
 jobs:
   include:
     
-    # - stage: Test
-    #   name: 'Unit Test'
-    #   install: npm install
-    #   script: docker-compose run server npm run test
+    - stage: Test
+      name: 'Unit Test'
+      install: npm install
+      script: docker-compose run server npm run test
 
     - stage: Deploy
-      # name: 'Deploy to Staging'
+      name: 'Deploy to Staging'
       # script:
       #   - docker-compose build
-      # deploy:
+      deploy:
       # - provider: script
       #   script:
       #     docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest;
