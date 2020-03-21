@@ -18,8 +18,8 @@ jobs:
 
     - stage: Deploy
       name: 'Deploy to Staging'
-      # script:
-      #   - docker-compose build
+      script:
+        - docker-compose build
       deploy:
       # - provider: script
       #   script:
@@ -32,6 +32,6 @@ jobs:
       #     heroku container:login;
       #     docker push registry.heroku.com/$HEROKU_APP/web;
       #     heroku container:release web --app $HEROKU_APP
-      - provider: heroku
-        api_key: $HEROKU_API_KEY
-        run: "heroku pg:psql"
+        - provider: heroku
+          api_key: $HEROKU_API_KEY
+          run: "heroku pg:psql"
