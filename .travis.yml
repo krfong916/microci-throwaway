@@ -34,5 +34,5 @@ before_install:
 #           heroku container:release web --app $HEROKU_APP
 #       - provider: script
 script: 
-  - (echo "$HEROKU_EMAIL" echo "$HEROKU_PASSWORD") | heroku login
+  - heroku login
 
