@@ -7,6 +7,7 @@ before_install:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_CONTAINER_REGISTRY_USERNAME" --password-stdin registry.heroku.com
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+  - chmod +x ./data/staging/deploy-staging.sh
 
 jobs:
   include:
