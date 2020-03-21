@@ -71,7 +71,7 @@ create table locations
 create extension postgis;
 
 alter table locations
-  add column location_coordinates geometry(Point, 4326) not null,
+  add column location_coordinates geometry(Point, 4326) not null;
 
 alter table locations
   add foreign key (workplace_id) REFERENCES workplaces(workplace_id);
