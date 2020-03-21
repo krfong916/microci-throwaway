@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo `pwd`
 if [[ $(cat "./data/staging/init.staging.check.sql" | heroku pg:psql) ]]; then
-echo "schema and data exists, dropping relations..."
+  echo "schema and data exists, dropping relations..."
   [[ $(cat "./data/staging/init.staging.drop.sql" | heroku pg:psql) ]];
   echo "relations dropped!"
   echo "reseeding!"

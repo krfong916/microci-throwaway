@@ -1,1 +1,1 @@
-select count(*) from identities;
+select count(*) from test;
