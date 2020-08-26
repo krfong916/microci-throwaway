@@ -1,6 +1,6 @@
 # MicroCI
 
-MicroCI is a personal playground for testing a CI/CD workflow for a project. Currently, it contains Jest, Docker, and CI/CD best practices.
+MicroCI is a personal playground for testing a CI/CD workflow using Travis, Heroku, and Github for a project. Currently, it contains Jest, Docker, and CI/CD best practices.
 
 This project also serves as boilerplate for a Node / Express app.
 
