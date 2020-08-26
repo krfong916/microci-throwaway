@@ -31,6 +31,8 @@ jobs:
           docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest;
           docker push $DOCKER_USERNAME/microci-throwaway_server:latest;
           docker images
+        on:
+          all_branches: true
       - provider: script    
         script:
           # Push the image to Heroku
@@ -38,6 +40,8 @@ jobs:
           heroku container:login;
           docker push registry.heroku.com/$HEROKU_APP/web;
           heroku container:release web --app $HEROKU_APP
+        on:
+          all_branches: true
       after_deploy:
         # Seed the database with table relations and data
         - sh ./data/staging/deploy-staging.sh
