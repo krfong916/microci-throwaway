@@ -9,7 +9,7 @@ export default class GetReportsController {
       });
 
       await client.connect();
-      const result = await client.query('select * from identities');
+      const result = await client.query('select * from report');
       client.end();
       return response.json({ result });
     } catch (error) {
