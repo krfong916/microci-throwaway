@@ -16,7 +16,7 @@ services:
     depends_on:
       - microci-db
   microci-db:
-    image: postgis/postgis:latest
+    image: postgres:12.4-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
