@@ -4,9 +4,12 @@ node_js:
   - node
 
 before_install:
+  # Install Heroku CLI
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  # Login to Container Registries, Docker Hub and Heroku
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_CONTAINER_REGISTRY_USERNAME" --password-stdin registry.heroku.com
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+  # Change file permissions, allow CI access to shell script
   - chmod +x ./data/staging/deploy-staging.sh
 
 jobs:
@@ -24,14 +27,17 @@ jobs:
       deploy:
       - provider: script
         script:
+          # Push the image to Docker Hub
           docker tag microci-throwaway_server $DOCKER_USERNAME/microci-throwaway_server:latest;
           docker push $DOCKER_USERNAME/microci-throwaway_server:latest;
           docker images
       - provider: script    
         script:
+          # Push the image to Heroku
           docker tag microci-throwaway_server registry.heroku.com/$HEROKU_APP/web;
           heroku container:login;
           docker push registry.heroku.com/$HEROKU_APP/web;
           heroku container:release web --app $HEROKU_APP
       after_deploy:
+        # Seed the database with table relations and data
         - sh ./data/staging/deploy-staging.sh
