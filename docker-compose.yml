@@ -12,6 +12,7 @@ services:
       - 3001:3001
     command: npm run dev
     volumes:
+      # We avoid image rebuilds by mounting our code as a volume
       - .:/app
     depends_on:
       - microci-db
