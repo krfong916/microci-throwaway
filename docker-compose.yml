@@ -12,11 +12,12 @@ services:
       - 3001:3001
     command: npm run dev
     volumes:
+      # We avoid image rebuilds by mounting our code as a volume
       - .:/app
     depends_on:
       - microci-db
   microci-db:
-    image: postgis/postgis:latest
+    image: postgres:12.4-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
