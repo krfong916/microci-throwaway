@@ -1,0 +1,6 @@
+build:
+  docker:
+    web: Dockerfile
+# If we do not specify a run section, then the Dockerfile CMD is used instead 
+run:
+  web: npm run staging
